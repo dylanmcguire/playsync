@@ -1,9 +1,9 @@
-package libraryUI.actions;
+package viewControllers.libraryUI.actions;
 
 import library.Artist;
-import libraryUI.ArtistView;
-import libraryUI.LibraryView;
-import libraryUI.LibraryViewController;
+import viewControllers.libraryUI.ArtistView;
+import viewControllers.libraryUI.LibraryView;
+import viewControllers.libraryUI.LibraryViewController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +28,6 @@ public class ArtistSelectedAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent e) {
         final LibraryView view = new ArtistView(libraryViewController, artist);
-        libraryViewController.switchView(view);
+        libraryViewController.switchView(view, true);
     }
 }

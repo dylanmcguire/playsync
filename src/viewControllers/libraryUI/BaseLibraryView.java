@@ -1,11 +1,10 @@
-package libraryUI;
+package viewControllers.libraryUI;
 
 import library.Artist;
 import library.Library;
-import libraryUI.actions.ArtistSelectedAction;
+import viewControllers.libraryUI.actions.ArtistSelectedAction;
 
 import javax.swing.*;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.

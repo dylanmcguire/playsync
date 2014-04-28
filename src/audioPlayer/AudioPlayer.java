@@ -37,6 +37,7 @@ public class AudioPlayer {
                     //final File audioFile = libraryAccessor.getSong(song);
                     final Media media = new Media(uri.toString());
                     mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setVolume(1);
                     mediaPlayer.play();
                 } catch (Exception e) {
                     e.printStackTrace();

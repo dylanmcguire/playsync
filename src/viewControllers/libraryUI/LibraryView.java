@@ -1,11 +1,7 @@
-package libraryUI;
-
-import library.Artist;
-import library.Library;
+package viewControllers.libraryUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.

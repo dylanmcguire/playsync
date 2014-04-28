@@ -1,6 +1,6 @@
-package libraryUI.actions;
+package viewControllers.libraryUI.actions;
 
-import libraryUI.LibraryViewController;
+import viewControllers.libraryUI.LibraryViewController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,17 +12,16 @@ import java.awt.event.ActionEvent;
  * Time: 4:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ResumeSongAction extends AbstractAction {
+public class PauseSongAction extends AbstractAction {
 
     private LibraryViewController viewController;
-
-    public ResumeSongAction(LibraryViewController viewController) {
-        super("Play");
+    public PauseSongAction(LibraryViewController viewController) {
+        super("Pause");
         this.viewController = viewController;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        viewController.handleResumeSong();
+        viewController.handleSongPause();
     }
 }

@@ -1,8 +1,8 @@
-package libraryUI;
+package viewControllers.libraryUI;
 
 import library.Albumn;
 import library.Artist;
-import libraryUI.actions.AlbumnSelectedAction;
+import viewControllers.libraryUI.actions.AlbumnSelectedAction;
 
 import javax.swing.*;
 

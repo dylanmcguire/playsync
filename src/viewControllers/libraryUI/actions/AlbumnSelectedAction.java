@@ -1,10 +1,9 @@
-package libraryUI.actions;
+package viewControllers.libraryUI.actions;
 
 import library.Albumn;
-import library.Artist;
-import libraryUI.AlbumnView;
-import libraryUI.LibraryView;
-import libraryUI.LibraryViewController;
+import viewControllers.libraryUI.AlbumnView;
+import viewControllers.libraryUI.LibraryView;
+import viewControllers.libraryUI.LibraryViewController;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -30,6 +29,6 @@ public class AlbumnSelectedAction extends AbstractAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         LibraryView view = new AlbumnView(libraryViewController, albumn);
-        libraryViewController.switchView(view);
+        libraryViewController.switchView(view, true);
     }
 }
