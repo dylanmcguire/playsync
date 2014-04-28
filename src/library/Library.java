@@ -26,8 +26,8 @@ public class Library {
     private List<Artist> artists;
     private IGoogleMusicAPI api;
 
-    public Library() {
-        api = login();
+    public Library(String userName, String pass) {
+        api = login(userName, pass);
         artists = buildArtistList(loadSongs());
 
     }
@@ -80,9 +80,7 @@ public class Library {
         return null;
     }
 
-    private IGoogleMusicAPI login() {
-        String password = "SBgnu154!";
-        String username = "dylanmcguire230";
+    private IGoogleMusicAPI login(String username, String password) {
         System.out.println(Calendar.getInstance().getTime());
         IGoogleMusicAPI api = new GoogleMusicAPI();
 

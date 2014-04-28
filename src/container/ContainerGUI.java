@@ -11,6 +11,8 @@ import netscan.status.checker.LogLevel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,7 +30,24 @@ public class ContainerGUI extends JFrame{
     }
 
     public ContainerGUI() {
-        final Library library = new Library();
+
+        JPanel logginPanel = new JPanel();
+        logginPanel.setPreferredSize(new Dimension(400, 75));
+        logginPanel.add(new JLabel("Username:"));
+        final JTextField userNameField = new JTextField();
+        userNameField.setPreferredSize(new Dimension(100, 20));
+        logginPanel.add(userNameField);
+        logginPanel.add(new JLabel("Password"));
+        final JPasswordField passwordField = new JPasswordField();
+        passwordField.setPreferredSize(new Dimension(100, 20));
+        logginPanel.add(passwordField);
+        JOptionPane.showConfirmDialog(this, logginPanel,"login", JOptionPane.OK_CANCEL_OPTION);
+        startUp(userNameField.getText(), passwordField.getText());
+    }
+
+
+    public void startUp(String username, String pass) {
+        final Library library = new Library(username, pass);
         final ConnectionController connectionController = new ConnectionController();
         connectionController.setNetScannerLoggingLevel(LogLevel.None);
         final AudioPlayer audioPlayer = new AudioPlayer();
@@ -38,9 +57,10 @@ public class ContainerGUI extends JFrame{
         add(currentViewController.getView(), BorderLayout.CENTER);
         add(connectionController.getView(), BorderLayout.EAST);
         add(controlBar, BorderLayout.NORTH);
+        validate();
         pack();
         setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        repaint();
     }
 
     public ViewController getCurrentViewController() {
@@ -54,4 +74,27 @@ public class ContainerGUI extends JFrame{
         pack();
     }
 
+    private class LoginPanel extends JPanel{
+        public LoginPanel() {
+            setPreferredSize(new Dimension(400, 75));
+            add(new JLabel("Username:"));
+            final JTextField userNameField = new JTextField();
+            userNameField.setPreferredSize(new Dimension(100, 20));
+            add(userNameField);
+            add(new JLabel("Password"));
+            final JPasswordField passwordField = new JPasswordField();
+            passwordField.setPreferredSize(new Dimension(100, 20));
+            add(passwordField);
+            final JButton loginButton = new JButton("Login");
+            loginButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    startUp(userNameField.getText(), passwordField.getText());
+                }
+            });
+            add(loginButton);
+        }
+    }
+
 }
+

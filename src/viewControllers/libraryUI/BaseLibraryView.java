@@ -5,6 +5,9 @@ import library.Library;
 import viewControllers.libraryUI.actions.ArtistSelectedAction;
 
 import javax.swing.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +27,15 @@ public class BaseLibraryView extends LibraryView {
 
     @Override
     public void init() {
-        for(Artist artist : library.getArtists()) {
+        List<Artist> artistList = library.getArtists();
+        Collections.sort(artistList, new Comparator<Artist>() {
+            @Override
+            public int compare(Artist o1, Artist o2) {
+
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
+        for(Artist artist : artistList) {
             add(new JButton(new ArtistSelectedAction(artist, libraryViewController)));
         }
     }

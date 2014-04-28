@@ -7,6 +7,7 @@ import netscan.playerConnectionUI.ConnectionController;
 import viewControllers.ViewController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,13 +29,16 @@ public class LibraryViewController implements ViewController{
     private AudioPlayer audioPlayer;
     private ConnectionController connectionController;
     private List<LibraryView> viewHistory;
-
+    private JScrollPane scrollPane;
     public LibraryViewController(Library library, ConnectionController connectionController, AudioPlayer audioPlayer) {
         this.library = library;
         viewHistory = new ArrayList<LibraryView>();
         container = new JPanel();
         libraryView = new BaseLibraryView(library, this);
-        container.add(libraryView);
+        scrollPane = new JScrollPane(libraryView);
+        scrollPane.setPreferredSize(new Dimension(500,500));
+        container.add(scrollPane);
+        container.setPreferredSize(new Dimension(500, 500));
         this.audioPlayer = audioPlayer;
         this.connectionController = connectionController;
     }
@@ -45,7 +49,9 @@ public class LibraryViewController implements ViewController{
         }
         libraryView = view;
         container.removeAll();
-        container.add(view);
+        scrollPane = new JScrollPane(view);
+        scrollPane.setPreferredSize(new Dimension(500,500));
+        container.add(scrollPane);
         container.validate();
         container.repaint();
     }

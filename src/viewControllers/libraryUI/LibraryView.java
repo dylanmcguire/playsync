@@ -17,7 +17,7 @@ public abstract class LibraryView extends JPanel{
     public LibraryView(LibraryViewController libraryViewController) {
         this.libraryViewController = libraryViewController;
 
-        this.setPreferredSize(new Dimension(500, 500));
+
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
