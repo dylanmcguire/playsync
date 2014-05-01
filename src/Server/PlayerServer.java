@@ -55,6 +55,10 @@ public class PlayerServer implements Runnable{
                         }
                         audioPlayer.playSong(new URI(uriString));
                     }
+                    if(command == ComConstants.PAUSE_SONG) {
+                        int trackPosition = Integer.parseInt(input.readLine());
+                        audioPlayer.pauseSong();
+                    }
                 }
 
             } catch (IOException e) {

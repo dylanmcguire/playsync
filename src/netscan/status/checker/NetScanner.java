@@ -39,7 +39,7 @@ public class NetScanner implements Runnable {
             for(int fourthQuadIPVal = 0; fourthQuadIPVal < 256; fourthQuadIPVal++) {
                 try {
                     final Socket socket = new Socket();
-                    socket.connect(new InetSocketAddress(ipBase+"."+fourthQuadIPVal, ApplicationConstants.SCANNER_PORT_NUMBER), 100);
+                    socket.connect(new InetSocketAddress(ipBase+"."+fourthQuadIPVal, ApplicationConstants.SCANNER_PORT_NUMBER), 500);
                     //socket.setSoTimeout(1000);
                     final BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     final PrintWriter outputStream = new PrintWriter(socket.getOutputStream(), true);

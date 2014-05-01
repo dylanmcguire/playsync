@@ -10,6 +10,6 @@ package Server;
 public class ComConstants {
 
     public static final int PLAY_SONG = 1;
-
+    public static final int PAUSE_SONG = 2;
 
 }

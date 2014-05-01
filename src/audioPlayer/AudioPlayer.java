@@ -22,9 +22,11 @@ public class AudioPlayer {
 
     private List<URI> playQueue;
     private MediaPlayer mediaPlayer;
+    private boolean playing;
 
     public AudioPlayer() {
         playQueue = new ArrayList<URI>();
+        playing = false;
     }
 
 
@@ -34,11 +36,20 @@ public class AudioPlayer {
             @Override
             public void run() {
                 try {
-                    //final File audioFile = libraryAccessor.getSong(song);
+                    if(playing) {
+                        mediaPlayer.stop();
+                    }
+                    playing = true;
                     final Media media = new Media(uri.toString());
                     mediaPlayer = new MediaPlayer(media);
                     mediaPlayer.setVolume(1);
                     mediaPlayer.play();
+                    mediaPlayer.setOnEndOfMedia(new Runnable() {
+                        @Override
+                        public void run() {
+                            playing = false;
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -73,6 +84,10 @@ public class AudioPlayer {
                 }
             }
         });
+    }
+
+    public double getTrackTime() {
+        return mediaPlayer.getCurrentTime().toMillis();
     }
 
 }

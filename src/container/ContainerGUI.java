@@ -41,7 +41,7 @@ public class ContainerGUI extends JFrame{
         final JPasswordField passwordField = new JPasswordField();
         passwordField.setPreferredSize(new Dimension(100, 20));
         logginPanel.add(passwordField);
-        JOptionPane.showConfirmDialog(this, logginPanel,"login", JOptionPane.OK_CANCEL_OPTION);
+        JOptionPane.showConfirmDialog(this, logginPanel,"Login to Google Music", JOptionPane.OK_CANCEL_OPTION);
         startUp(userNameField.getText(), passwordField.getText());
     }
 
@@ -53,6 +53,7 @@ public class ContainerGUI extends JFrame{
         final AudioPlayer audioPlayer = new AudioPlayer();
         final PlayerServer playerServer = new PlayerServer(audioPlayer);
         final ControlBar controlBar = new ControlBar(this, connectionController, playerServer);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         currentViewController = new LibraryViewController(library, connectionController, audioPlayer);
         add(currentViewController.getView(), BorderLayout.CENTER);
         add(connectionController.getView(), BorderLayout.EAST);

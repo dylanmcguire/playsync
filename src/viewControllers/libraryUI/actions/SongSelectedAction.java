@@ -41,6 +41,10 @@ public class SongSelectedAction extends AbstractAction{
         final LibraryView songView = new SongView(songWrapper, libraryViewController);
         libraryViewController.switchView(songView, true);
         final ConnectionModel connectionModel = libraryViewController.getConnectionController().getConnectionModel();
+
+        int count = 0;
+        int numConnections = connectionModel.getConnectionsAsAvailableServerList().size();
+        long playTime = 0;
         for(AvailableServer connection : connectionModel.getConnectionsAsAvailableServerList()) {
             try {
                 final Socket socket = new Socket(connection.getIpAddress(), ApplicationConstants.COMMAND_PORT_NUMBER);
@@ -56,18 +60,21 @@ public class SongSelectedAction extends AbstractAction{
                 }
                 input.readLine();
                 //System.out.println("Start time: " + startTime);
-                long playTime = System.currentTimeMillis() + (System.currentTimeMillis() - startTime);
+                playTime = System.currentTimeMillis() + (numConnections-count)*(System.currentTimeMillis() - startTime);
                 //System.out.println("Play time: " + playTime);
                 out.println(playTime);
 
-                try {
-                    Thread.sleep(playTime - System.currentTimeMillis());
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+            count++;
+        }
+        try {
+            if(playTime - System.currentTimeMillis() > 0) {
+                Thread.sleep(playTime - System.currentTimeMillis());
+            }
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
         }
         libraryViewController.handleSongPlayback(songWrapper);
     }
