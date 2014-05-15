@@ -86,8 +86,8 @@ public class Library {
 
         try
         {
-            new GoogleSkyJamAPI().login(username, password);
-            new GoogleMusicAPI().login(username, password);
+          //  new GoogleSkyJamAPI().login(username, password);
+           // new GoogleMusicAPI().login(username, password);
             api.login(username, password);
         }
         catch(Exception e)

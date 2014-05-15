@@ -30,6 +30,7 @@ public class LibraryViewController implements ViewController{
     private ConnectionController connectionController;
     private List<LibraryView> viewHistory;
     private JScrollPane scrollPane;
+
     public LibraryViewController(Library library, ConnectionController connectionController, AudioPlayer audioPlayer) {
         this.library = library;
         viewHistory = new ArrayList<LibraryView>();

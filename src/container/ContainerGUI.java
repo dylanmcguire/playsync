@@ -2,6 +2,7 @@ package container;
 
 import Server.PlayerServer;
 import audioPlayer.AudioPlayer;
+import audioPlayer.EndOfMediaRunnable;
 import controlBarUI.ControlBar;
 import library.Library;
 import viewControllers.ViewController;
@@ -55,6 +56,8 @@ public class ContainerGUI extends JFrame{
         final ControlBar controlBar = new ControlBar(this, connectionController, playerServer);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         currentViewController = new LibraryViewController(library, connectionController, audioPlayer);
+        final EndOfMediaRunnable endOfMediaRunable = new EndOfMediaRunnable((LibraryViewController)currentViewController, audioPlayer);
+        audioPlayer.setEndOfMediaRunable(endOfMediaRunable);
         add(currentViewController.getView(), BorderLayout.CENTER);
         add(connectionController.getView(), BorderLayout.EAST);
         add(controlBar, BorderLayout.NORTH);

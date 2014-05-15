@@ -1,6 +1,7 @@
 package netscan.playerConnectionUI;
 
 import netscan.connectionsModel.ConnectionModel;
+import netscan.playerConnectionUI.actions.AddNewConnectionToListActions;
 import netscan.status.checker.AvailableServer;
 
 import javax.swing.*;
@@ -18,14 +19,21 @@ import java.util.List;
 public class ConnectionView extends JPanel implements Refreshable{
 
     private List<AvailableServer> availableServerList = new ArrayList<AvailableServer>();
-
+    private JPanel connectionsPanel;
     private ConnectionModel connectionModel;
 
     public ConnectionView(ConnectionModel connectionModel) {
         this.connectionModel = connectionModel;
-        setPreferredSize(new Dimension(200,200));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(new JLabel("Available Stream Players"));
+        setLayout(new BorderLayout());
+        connectionsPanel = new JPanel();
+        connectionsPanel.setPreferredSize(new Dimension(200, 200));
+        connectionsPanel.setLayout(new GridLayout(1,20));
+        final JPanel controllerPanel = new JPanel();
+        controllerPanel.add(new JLabel("Available Stream Players"));
+        final JButton jbutton = new JButton(new AddNewConnectionToListActions(connectionModel, this));
+        controllerPanel.add(jbutton);
+        add(controllerPanel, BorderLayout.NORTH);
+        add(connectionsPanel, BorderLayout.CENTER);
     }
 
 
@@ -35,13 +43,13 @@ public class ConnectionView extends JPanel implements Refreshable{
 
     @Override
     public void refresh() {
-        removeAll();
+        connectionsPanel.removeAll();
         for(AvailableServer availableServer : connectionModel.getConnectionsAsAvailableServerList()) {
-            add(new ConnectedServerCell(availableServer, connectionModel, this));
+            connectionsPanel.add(new ConnectedServerCell(availableServer, connectionModel, this));
         }
         for(AvailableServer availableServer : availableServerList) {
             if(!connectionModel.isConnected(availableServer.getIpAddress())) {
-                add(new AvailableServerCell(availableServer, connectionModel, this));
+                connectionsPanel.add(new AvailableServerCell(availableServer, connectionModel, this));
             }
         }
         validate();

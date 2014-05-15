@@ -1,9 +1,11 @@
 package audioPlayer;
 
+import com.sun.xml.internal.bind.v2.model.annotation.RuntimeAnnotationReader;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import library.SongWrapper;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -20,15 +22,35 @@ import java.util.List;
  */
 public class AudioPlayer {
 
-    private List<URI> playQueue;
+    private List<SongWrapper> playQueue;
     private MediaPlayer mediaPlayer;
     private boolean playing;
+    private Runnable endOfMediaRunnable;
+
 
     public AudioPlayer() {
-        playQueue = new ArrayList<URI>();
+        playQueue = new ArrayList<SongWrapper>();
         playing = false;
     }
 
+    public void setEndOfMediaRunable(Runnable endOfMediaRunnable) {
+        this.endOfMediaRunnable = endOfMediaRunnable;
+    }
+
+    public SongWrapper dequeSongWrapper() {
+        if (!isPlayQueueEmpty()) {
+            return playQueue.remove(0);
+        }
+        return null;
+    }
+
+    public void setPlayQueue(List<SongWrapper> playQueue) {
+        this.playQueue = playQueue;
+    }
+
+    public boolean isPlayQueueEmpty() {
+        return playQueue.isEmpty();
+    }
 
     public void playSong(final URI uri) {
         new JFXPanel();
@@ -42,6 +64,7 @@ public class AudioPlayer {
                     playing = true;
                     final Media media = new Media(uri.toString());
                     mediaPlayer = new MediaPlayer(media);
+                    mediaPlayer.setOnEndOfMedia(endOfMediaRunnable);
                     mediaPlayer.setVolume(1);
                     mediaPlayer.play();
                     mediaPlayer.setOnEndOfMedia(new Runnable() {
